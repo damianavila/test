@@ -1,0 +1,13 @@
+name: Test kops
+on: push
+jobs:
+  Explore-kops-action:
+    name: Validate cluster
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Kops
+        uses: hiberbee/github-action-kops@1.0.0
+      - run: |
+          kops
+      - run: |
+          echo "done"
