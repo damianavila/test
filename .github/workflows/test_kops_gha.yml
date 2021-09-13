@@ -1,13 +1,15 @@
-name: Test kops
-on: push
+name: Kops install demo
+on: [push]
 jobs:
-  Explore-kops-action:
-    name: Validate cluster
+  Explore-GitHub-Actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup Kops
-        uses: hiberbee/github-action-kops@1.0.0
-      - run: |
+      - name: Install kops
+        run: |
+          curl -Lo kops https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
+          chmod +x kops
+          sudo mv kops /usr/local/bin/kops
+      - name: Run kops
+        run: |
           kops
-      - run: |
-          echo "done"
+      - run: echo "Done!"
